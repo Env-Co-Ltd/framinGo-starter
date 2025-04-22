@@ -1,7 +1,5 @@
 BINARY_NAME=framinGo
-## build_cli: builds the command line tool framingo
-build_cli:
-	@go build -o framinGo ./cmd/cli
+
 build:
 	@go mod vendor
 	@echo "Building Framingo..."
@@ -9,9 +7,9 @@ build:
 	@echo "Framingo built!"
 
 run: build
-	@echo "Starting Framingo..."
+	@echo "Starting FraminGo..."
 	@./tmp/${BINARY_NAME} &
-	@echo "Framingo started!"
+	@echo "FraminGo started!"
 
 clean:
 	@echo "Cleaning..."
@@ -27,7 +25,7 @@ test:
 start: run
 
 stop:
-	@echo "Stopping Framingo..."
+	@echo "Stopping FraminGo..."
 	@-pkill -SIGTERM -f "./tmp/${BINARY_NAME}"
 	@echo "Stopped Framingo!"
 
