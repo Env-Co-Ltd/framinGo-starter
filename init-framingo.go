@@ -42,7 +42,7 @@ func InitApplication() *application {
 
 	models := data.New(app.App.DB.Pool)
 	app.Models = models
-	myHandlers.Models = *app.Models
+	myHandlers.Models = app.Models
 	app.Middleware.Models = *app.Models
 
 	return app
