@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"myapp/data"
+	"${APP_NAME}/data"
 	"github.com/Env-Co-Ltd/framinGo"
 )
 
