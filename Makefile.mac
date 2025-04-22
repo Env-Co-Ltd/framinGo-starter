@@ -1,5 +1,7 @@
 BINARY_NAME=framinGo
-
+## build_cli: builds the command line tool framingo
+build_cli:
+	@go build -o framinGo ./cmd/cli
 build:
 	@go mod vendor
 	@echo "Building Framingo..."
