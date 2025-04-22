@@ -1,7 +1,9 @@
 package main
 
-import "net/http"
-"github.com/Env-Co-Ltd/framinGo"
+import (
+	"net/http"
+	"github.com/Env-Co-Ltd/framinGo"
+)
 
 func(a *application) get(s string, h http.HandlerFunc) {
   a.App.Routes.Get(s, h)

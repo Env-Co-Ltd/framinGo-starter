@@ -2,8 +2,7 @@ package middleware
 
 import (
 	"myapp/data"
-
-　"github.com/Env-Co-Ltd/framinGo"
+	"github.com/Env-Co-Ltd/framinGo"
 )
 
 type Middleware struct {
