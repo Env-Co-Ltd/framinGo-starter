@@ -1,19 +1,13 @@
 BINARY_NAME=framinGo
-APP_NAME?=$(shell basename $(CURDIR))
-
 build:
-	@echo "Setting up project with name: ${APP_NAME}..."
-	@find . -type f -name "*.go" -exec sed -i '' 's/\"${APP_NAME}\/\([^"]*\)\"/\"${APP_NAME}\/\1\"/g;s/\"myapp\/\([^"]*\)\"/\"${APP_NAME}\/\1\"/g' {} \;
-	@go mod edit -module ${APP_NAME}
-	@go mod vendor
-	@echo "Building Framingo..."
-	@go build -o ./${BINARY_NAME} .
-	@echo "Framingo built!"
+	@echo "Building Celeritas..."
+	@go build -o tmp/${BINARY_NAME} .
+	@echo "Celeritas built!"
 
 run: build
-	@echo "Starting FraminGo with name: ${APP_NAME}..."
-	@./${BINARY_NAME} -name ${APP_NAME} &
-	@echo "FraminGo started!"
+	@echo "Starting Celeritas..."
+	@./tmp/${BINARY_NAME} &
+	@echo "Celeritas started!"
 
 clean:
 	@echo "Cleaning..."
@@ -29,8 +23,8 @@ test:
 start: run
 
 stop:
-	@echo "Stopping FraminGo..."
+	@echo "Stopping Celeritas..."
 	@-pkill -SIGTERM -f "./tmp/${BINARY_NAME}"
-	@echo "Stopped Framingo!"
+	@echo "Stopped Celeritas!"
 
 restart: stop start
