@@ -9,7 +9,7 @@
 <div class="col text-center">
   <div class="d-flex align-items-center justify-content-center mt-5">
       <div>
-        <img src="/public/images/FraminGo.png" class="mb-5" style="width: 100px;height:auto;">
+        <img src="/public/images/framinGo.png" class="mb-5" style="width: 100px;height:auto;">
         <h1>FraminGo</h1>
         <hr class="my-4">
         <small class="text-muted">Go & FramminGo build something awesome</small>
