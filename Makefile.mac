@@ -1,4 +1,5 @@
 BINARY_NAME=framinGo
+APP_NAME?=$(shell basename $(CURDIR))
 
 build:
 	@go mod vendor
@@ -7,8 +8,8 @@ build:
 	@echo "Framingo built!"
 
 run: build
-	@echo "Starting FraminGo..."
-	@./${BINARY_NAME} &
+	@echo "Starting FraminGo with name: ${APP_NAME}..."
+	@./${BINARY_NAME} -name ${APP_NAME} &
 	@echo "FraminGo started!"
 
 clean:

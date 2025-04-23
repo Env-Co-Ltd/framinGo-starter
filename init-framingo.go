@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"myapp/data"
 	"myapp/handlers"
@@ -18,8 +19,29 @@ func InitApplication() *application {
 		log.Fatal(err)
 	}
 
-	// アプリケーション名をディレクトリ名から取得
-	appName := filepath.Base(path)
+	// コマンドライン引数からアプリケーション名を取得
+	var appNameFlag string
+	flag.StringVar(&appNameFlag, "name", "", "アプリケーション名")
+	flag.Parse()
+
+	// アプリケーション名の優先順位:
+	// 1. コマンドライン引数
+	// 2. 環境変数
+	// 3. config/app.name
+	// 4. ディレクトリ名
+	appName := appNameFlag
+	if appName == "" {
+		appName = os.Getenv("APP_NAME")
+	}
+	if appName == "" {
+		if nameBytes, err := os.ReadFile(filepath.Join(path, "config", "app.name")); err == nil {
+			appName = strings.TrimSpace(string(nameBytes))
+		}
+	}
+	if appName == "" {
+		appName = filepath.Base(path)
+	}
+
 	// 特殊文字を除去し、小文字に変換
 	appName = strings.ToLower(strings.Replace(appName, "-", "", -1))
 
