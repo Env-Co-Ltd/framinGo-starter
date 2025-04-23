@@ -1,32 +1,37 @@
-BINARY_NAME=FraminGoApp.exe
+BINARY_NAME=framinGo.exe
+APP_NAME?=$(notdir $(CURDIR))
 
 ## build: builds all binaries
 build:
-    @go mod vendor
-    @go build -o ./${BINARY_NAME} .
-	@echo Framingo built!
+	@echo "Setting up project with name: $(APP_NAME)..."
+	@powershell -Command "Get-ChildItem -Recurse -Filter *.go | ForEach-Object { (Get-Content $_.FullName) -replace '\"$(APP_NAME)\/([^\"]*?)\"', '\"$(APP_NAME)/$$1\"'; -replace '\"myapp\/([^\"]*?)\"', '\"$(APP_NAME)/$$1\"' | Set-Content $_.FullName }"
+	@go mod edit -module $(APP_NAME)
+	@go mod vendor
+	@echo "Building Framingo..."
+	@go build -o ./$(BINARY_NAME) .
+	@echo "Framingo built!"
 
-run:
-	@echo Staring Framingo...
-    @start /min cmd /c \${BINARY_NAME} &
-	@echo Framingo started!
+run: build
+	@echo "Starting FraminGo with name: $(APP_NAME)..."
+	@start /B $(BINARY_NAME) -name $(APP_NAME)
+	@echo "FraminGo started!"
 
 clean:
-	@echo Cleaning...
-	@DEL ${BINARY_NAME}
+	@echo "Cleaning..."
 	@go clean
-	@echo Cleaned!
+	@del /F /Q tmp\$(BINARY_NAME)
+	@echo "Cleaned!"
 
 test:
-	@echo Testing...
+	@echo "Testing..."
 	@go test ./...
-	@echo Done!
+	@echo "Done!"
 
 start: run
-	
+
 stop:
-	@echo "Starting the front end..."
-	@taskkill /IM ${BINARY_NAME} /F
-	@echo Stopped Framingo
+	@echo "Stopping FraminGo..."
+	@taskkill /IM $(BINARY_NAME) /F
+	@echo "Stopped Framingo!"
 
 restart: stop start

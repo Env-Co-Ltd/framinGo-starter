@@ -2,6 +2,9 @@ BINARY_NAME=framinGo
 APP_NAME?=$(shell basename $(CURDIR))
 
 build:
+	@echo "Setting up project with name: ${APP_NAME}..."
+	@find . -type f -name "*.go" -exec sed -i '' 's/\"${APP_NAME}\/\([^"]*\)\"/\"${APP_NAME}\/\1\"/g;s/\"myapp\/\([^"]*\)\"/\"${APP_NAME}\/\1\"/g' {} \;
+	@go mod edit -module ${APP_NAME}
 	@go mod vendor
 	@echo "Building Framingo..."
 	@go build -o ./${BINARY_NAME} .
